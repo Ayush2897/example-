@@ -134,3 +134,13 @@ resource "github_team" "example" {
   description = each.value.description
 }
 ***********************************************************************************************************************************
+dynamic "ingress"{  # it produces ingress nested blocks
+    for_each = var.ingress_ports # iterating over the list variable
+    iterator = iport
+    content {
+        from_port = iport.value
+        to_port = iport.value
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+     }
+***********************************************************************************************************************************     
